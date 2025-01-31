@@ -12,6 +12,16 @@ public class ComandaFindMember extends Comanda{
         this.pw = pw;
         this.persoana = persoana;
     }
+
+    /**
+     * Metoda va incerca sa gaseasca grupul dorit in baza de date, apoi
+     * @throws GroupNotExistsException Se va arunca exceptia care va fi tratata in Main, in caz ca grupul specificat
+     *     definit de cei doi parametrii: museumCode si timetable NU exista in baza de date.
+     *     Daca l-am gasit, voi itera prin membrii grupului respectiv si daca voi gasi o persoana membru
+     *     care coincide cu persoana transmisa ca parametru comenzii acesteia => afisez mesaj corespunzator
+     *     in fisier.  Daca nu am gasit membrul pe care l-am cautat => afisez member not exist.
+     *
+     */
     @Override
     public void executa() throws GroupNotExistsException {
         Group grupGasit = Database.Instanta().findGroup(museumCode, timetable);

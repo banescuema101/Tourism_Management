@@ -20,23 +20,10 @@ public class ComandaAddMember extends Comanda{
             if (grupGasit == null) {
                 throw new GroupNotExistsException("GroupNotExistsException: Group does not exist.");
             }
-//            Set<Group> listaGrupuri = Database.Instanta().getListaGrupuri();
             try {
                 grupGasit.addMember(member);
-//                System.out.println("SE ADAUGA?:");
-//                for (Group g : grupuriBazaDeDate) {
-//                    for (Person p : g.getMembers()) {
-//                        System.out.println(p);
-//                    }
-//                }
                 pw.println(museumCode + " ## " + timetable + " ## new member: " + member.toString());
             } catch (GroupTresholdException e) {
-//                System.out.println("IN CAZ DE EXC::");
-//                for (Group g : grupuriBazaDeDate) {
-//                    for (Person p : g.getMembers()) {
-//                        System.out.println(p);
-//                    }
-//                }
                 pw.println(museumCode + " ## " + timetable + " ## " + e.getMessage() + " ## (new member: " + member.toString() + ")");
             }
     }

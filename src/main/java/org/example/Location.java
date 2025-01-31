@@ -1,10 +1,10 @@
 package org.example;
 
 public class Location {
-    // campuri obligatorii.
+    // campurile obligatorii.
     private String country;
     private Integer sirutaCode;
-    // campuri optionale
+    // campurile optionale
     private String judet;
     private String locality;
     private String adminUnit;
@@ -12,20 +12,29 @@ public class Location {
     private Integer latitude;
     private Integer longitude;
     public static class LocationBuilder {
-        // campuri obligatorii.
+        // campurile obligatorii.
         private String county;
         private Integer sirutaCode;
-        // campuri optionale
+        // campurile optionale
         private String judet;
         private String locality;
         private String adminUnit;
         private String address;
         private Integer latitude;
         private Integer longitude;
+
+        /**
+         * Constructor pentru campurile obligatorii.
+         * @param country judetul aferent
+         * @param sirutaCode codul siruta.
+         */
         public LocationBuilder(String country, Integer sirutaCode) {
             this.county = country;
             this.sirutaCode = sirutaCode;
         }
+        // mai jos, setari pentru fiecare camp optional, care imi vor intoarce
+        // mereu referinta la instanta curenta a clasei in care ma aflu acum.
+
         public LocationBuilder setLocality(String locality) {
             this.locality = locality;
             return this;
@@ -50,6 +59,10 @@ public class Location {
             this.judet = judet;
             return this;
         }
+        // metoda build() a builderului intern clasei Location, care va returna un obiect de tipul Location
+        // construit prin constructorul lui mai special ce are ca parametru builderul intern, referit aici
+        // prin this, care mereu se va actualiza pe masura ce ulterior in logica aplicatiei
+        // setez parametrii optionali, pe care nu stiu din start daca ii va avea sau nu entitatea Location.
         public Location build() {
             return new Location(this);
         }

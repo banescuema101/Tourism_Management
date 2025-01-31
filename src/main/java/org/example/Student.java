@@ -11,7 +11,4 @@ public class Student extends Person {
     public String toString() {
         return super.toString() + ", school=" + school + ", studyYear=" + studyYear;
     }
-    public boolean mayBeGuide() {
-        return false;
-    }
 }

@@ -5,8 +5,8 @@ public class ComandaAddGroup extends Comanda {
     public ComandaAddGroup(Group group) {
         this.group = group;
     }
+    // doar voi apela metoda din baza de date, de adaugare a unui grup.
     public void executa() {
         Database.Instanta().addGroup(group);
     }
-
 }

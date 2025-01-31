@@ -175,10 +175,10 @@ public class Museum {
     }
 
     /**
-     * Metoda de atasare a unui observator, adica pur si simplu il inserez in lista.
+     * Metoda de atasare a unui observator, adica pur si simplu il inserez in lista de observers.
      * Aceasta metoda o voi folosi in cadrul metodei: {@link ComandaAddGuideToGroup#executa()}. Pentru ca
      * atunci cand adaug un ghid unui grup, si operatia se finalizeaza cu succes, nu apar exceptii, voi
-     * atasa acel ghid ( de tip Professor) muzeului la care grupul are vizita, cu codul codeMuseum.
+     * atasa acel ghid (de tip Professor) muzeului la care grupul are vizita, cu codul codeMuseum.
      * @param observer Ghidul pe care doresc sa il atasez in lista de "observatori" ce apartin acestui MUZEU.
      */
     public void attachObserver(Professor observer) {
