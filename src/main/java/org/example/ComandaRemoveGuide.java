@@ -1,12 +1,11 @@
 package org.example;
 
 import java.io.PrintWriter;
-import java.util.Set;
 
 public class ComandaRemoveGuide extends Comanda{
-    private Integer museumCode;
-    private String timetable;
-    private PrintWriter pw;
+    private final Integer museumCode;
+    private final String timetable;
+    private final PrintWriter pw;
     // Aici memorez ca atribut ghidul pe care il voi gasi, pentru ca imi trebuie in Main
     // la explicitarea unei exceptii. A se vedea la operatia de REMOVE GUIDE de acolo.
     private Person ghidDeResetat;

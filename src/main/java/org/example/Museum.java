@@ -202,7 +202,7 @@ public class Museum {
      * care contine emailul observatorului respectiv, concatenat cu numele MUZEULUI si codul MUZEULUI.
      * si aplic metoda de notificare a observatorului la care am ajuns.{@link Museum#notifyObserver(Professor, String, PrintWriter)}
      * @param message mesajul pe care doreste muzeul, prin ulterioara comanda de adaugare Eveniment,
-     *                pe care il voi parsa in metoda {@link Main#parsareLiniiEvenimente(BufferedReader, PrintWriter)}.
+     *                pe care il voi parsa in metoda {@link ParsareFisierEvenimente#parsareLiniiEvenimente(BufferedReader, PrintWriter)}.
      * @param pw printWriterul pe care il va primi ca parametru notifyObserver. Ii trimitem mailul personalizat ulterior si
      *           conform cerintei, il voi scrie in fisierul event.out.
      */
