@@ -37,7 +37,7 @@ public class ParsareFisierGroups {
                 anStudiiSauExperienta = Integer.parseInt(sir[7]);
             }
             String rol = sir[8];
-            Person persoanaParsata = null;
+            Person persoanaParsata;
             // persoana va putea fi ori student ori profesor:
             if (titulatura.equals("student")) {
                 persoanaParsata = new Student(prenume, nume, titulatura, scoala, anStudiiSauExperienta);

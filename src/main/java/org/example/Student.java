@@ -6,8 +6,8 @@ package org.example;
  * specifica unui student.
  */
 public class Student extends Person {
-    private String school;
-    private int studyYear;
+    private final String school;
+    private final int studyYear;
     public Student(String surname, String name, String role, String school, int studyYear) {
         super(surname, name, role);
         this.school = school;

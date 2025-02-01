@@ -11,11 +11,8 @@ public class Main {
         // Resetez baza de date pentru a face ca datele sa NU fie persistente DECAT pe parcursul unei
         // sesiuni.
         Database.Instanta().resetAll();
-        // calea de inceput pe care stiu mereu ca o va avea fisierul
-        String antet = "/src/main/resources/";
         // cazul in care args va avea doar 2 parametrii, tipul pathului si calea fisierului.
         if (args.length == 2) {
-            String path = args[0];
             // am observat ca testerul creeaza calea fara extensia .in, asa ca o voi concatena.
             String filename = args[1] + ".in";
             try {
@@ -47,7 +44,6 @@ public class Main {
             // In caz ca args are 4 parametrii: tipul pathului si cele 3 fisiere de muzeuri,
             // grupuri si events:
             // creez cele 3 File -uri
-            String path = args[0];
             String numeFisierMuzee = args[1] + ".in";
             File fisierMuzee = new File(numeFisierMuzee);
 

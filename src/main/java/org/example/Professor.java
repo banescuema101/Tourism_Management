@@ -6,8 +6,8 @@ package org.example;
  * folosindu-ma de cel al superclasei Person.
  */
 public class Professor extends Person{
-    private int experience;
-    private String school;
+    private final int experience;
+    private final String school;
     public Professor(String surname, String name, String role, String school, int experience) {
         super(surname, name, role);
         this.experience = experience;
