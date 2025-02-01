@@ -1,16 +1,15 @@
 package org.example;
 
 import java.io.PrintWriter;
-import java.util.Set;
 
 /**
  *  Clasa de stergere a unui anume membru dintr un grup.
  */
 public class ComandaRemoveMember extends Comanda {
-    private Integer museumCode;
-    private String timetable;
-    private Person person;
-    private PrintWriter pw;
+    private final Integer museumCode;
+    private final String timetable;
+    private final Person person;
+    private final PrintWriter pw;
     public ComandaRemoveMember(Integer museumCode, String timetable, Person person, PrintWriter pw) {
         this.museumCode = museumCode;
         this.timetable = timetable;

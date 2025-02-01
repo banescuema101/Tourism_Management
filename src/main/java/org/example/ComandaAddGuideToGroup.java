@@ -7,9 +7,9 @@ import java.util.Set;
  * Comanda cu rol de adaugare a unui ghid la un grup.
  */
 public class ComandaAddGuideToGroup extends Comanda{
-    private Group grup;
-    private Person ghid;
-    private PrintWriter pw;
+    private final Group grup;
+    private final Person ghid;
+    private final PrintWriter pw;
 
     /**
      * Constructorul comenzii specifice de adaugare a unui ghid in grup.

@@ -1,7 +1,5 @@
 package org.example;
-import java.io.PrintWriter;
 import java.util.LinkedHashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -34,7 +32,7 @@ public class Database {
     public void addMuseum(Museum museum) {
         // adauga o singura entitate muzeala.
         if (museums == null) {
-            museums = new LinkedHashSet<Museum>();
+            museums = new LinkedHashSet<>();
         }
         museums.add(museum);
     }
@@ -45,7 +43,7 @@ public class Database {
      */
     public void addGroup(Group group) {
         if (groups == null) {
-            groups = new LinkedHashSet<Group>();
+            groups = new LinkedHashSet<>();
         }
         groups.add(group);
     }
@@ -55,17 +53,6 @@ public class Database {
     }
     public void addGroups(LinkedHashSet<Group> colectieGrupuri) {
         groups.addAll(colectieGrupuri);
-    }
-
-    /**
-     * Metoda de afisare intr-un fisier (PrintWriter) a tuturor elementelor
-     * din cadrul setului de muzee din baza de date.
-     * @param pw PrintWriterul in care voi scrie.
-     */
-    public void showMuseums(PrintWriter pw){
-        for (Museum museum : museums) {
-            pw.println(museum.toString());
-        }
     }
 
     /**

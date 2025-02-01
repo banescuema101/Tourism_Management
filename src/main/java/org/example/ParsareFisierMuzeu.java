@@ -40,6 +40,12 @@ public class ParsareFisierMuzeu {
                     locationBuilder.setLongitude(longitude);
                 }
                 if (sir[0].equals("ADD MUSEUM")) {
+                    if (!sir[3].isEmpty()) {
+                        locationBuilder.setCounty(sir[3]);
+                    }
+                    if (!sir[4].isEmpty()) {
+                        locationBuilder.setLocality(sir[4]);
+                    }
                     if (!sir[5].isEmpty()) {
                         locationBuilder.setAdminUnit(sir[5]);
                     }

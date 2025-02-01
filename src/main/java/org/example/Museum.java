@@ -87,7 +87,6 @@ public class Museum {
     public String getCoordonate() {
         return coordonate;
     }
-
     // si altele..
     // Clasa Builder pentru constructia
     public static class MuseumBuilder {

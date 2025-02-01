@@ -7,10 +7,9 @@ package org.example;
  */
 public class Location {
     // campurile obligatorii.
-    private String country;
+    private String county;
     private Integer sirutaCode;
     // campurile optionale
-    private String judet;
     private String locality;
     private String adminUnit;
     private String address;
@@ -21,7 +20,6 @@ public class Location {
         private String county;
         private Integer sirutaCode;
         // campurile optionale
-        private String judet;
         private String locality;
         private String adminUnit;
         private String address;
@@ -40,6 +38,10 @@ public class Location {
         // mai jos, setari pentru fiecare camp optional, care imi vor intoarce
         // mereu referinta la instanta curenta a clasei in care ma aflu acum.
 
+        public LocationBuilder setCounty(String county) {
+            this.county = county;
+            return this;
+        }
         public LocationBuilder setLocality(String locality) {
             this.locality = locality;
             return this;
@@ -60,10 +62,6 @@ public class Location {
             this.longitude = longitude;
             return this;
         }
-        public LocationBuilder setJudet(String judet) {
-            this.judet = judet;
-            return this;
-        }
         // metoda build() a builderului intern clasei Location, care va returna un obiect de tipul Location
         // construit prin constructorul lui mai special ce are ca parametru builderul intern, referit aici
         // prin this, care mereu se va actualiza pe masura ce ulterior in logica aplicatiei
@@ -73,10 +71,9 @@ public class Location {
         }
     }
     private Location(LocationBuilder builder) {
-        this.country = builder.county;
+        this.county = builder.county;
         this.sirutaCode = builder.sirutaCode;
         this.locality = builder.locality;
-        this.judet = builder.judet;
         this.adminUnit = builder.adminUnit;
         this.address = builder.address;
         this.latitude = builder.latitude;

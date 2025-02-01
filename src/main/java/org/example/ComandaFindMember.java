@@ -6,10 +6,10 @@ import java.io.PrintWriter;
  * turistic.
  */
 public class ComandaFindMember extends Comanda{
-    private Integer museumCode;
-    private String timetable;
-    private PrintWriter pw;
-    private Person persoana;
+    private final Integer museumCode;
+    private final String timetable;
+    private final PrintWriter pw;
+    private final Person persoana;
     public ComandaFindMember(Integer museumCode, String timetable, Person persoana, PrintWriter pw) {
         this.museumCode = museumCode;
         this.timetable = timetable;

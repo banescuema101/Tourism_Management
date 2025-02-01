@@ -1,15 +1,14 @@
 package org.example;
 import java.io.PrintWriter;
-import java.util.Set;
 
 /**
  * Comanda de adaugare a unui membru la un grup specific.
  */
 public class ComandaAddMember extends Comanda{
-    private Integer museumCode;
-    private String timetable;
-    private Person member;
-    private PrintWriter pw;
+    private final Integer museumCode;
+    private final String timetable;
+    private final Person member;
+    private final PrintWriter pw;
     public ComandaAddMember(Integer museumCode, String timetable, Person member, PrintWriter pw) {
         this.museumCode = museumCode;
         this.timetable = timetable;
