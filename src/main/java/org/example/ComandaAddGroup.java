@@ -1,5 +1,8 @@
 package org.example;
 
+/**
+ * Comanda cu rol de adaugare a unui grup in baza de date.
+ */
 public class ComandaAddGroup extends Comanda {
     private Group group;
     public ComandaAddGroup(Group group) {

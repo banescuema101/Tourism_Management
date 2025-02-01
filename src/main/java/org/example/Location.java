@@ -1,5 +1,10 @@
 package org.example;
 
+/**
+ * Clasa Location definita pentru a gestiona si organiza datele
+ * asociate locului in care se afla entitatile muzeale. Va avea atat campuri obligatorii
+ * cat si optionale (Design pattern: Builder)
+ */
 public class Location {
     // campurile obligatorii.
     private String country;

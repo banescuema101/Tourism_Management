@@ -4,6 +4,9 @@ import java.util.LinkedHashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+/**
+ * Baza de date creata folosind Singleton, ce cotine un set de muzee si de grupuri.
+ */
 public class Database {
     private static Database databaseUnica;
     private Set<Museum> museums;

@@ -1,6 +1,12 @@
 package org.example;
 
 import java.io.PrintWriter;
+
+/**
+ * Clasa ce modeleaza o persoana. Nu este abstracta pentru ca va trebui sa o pot instantia
+ * si pe ea de exemplu in cazul in care creez managerul unui muzeu (care nu este nici
+ * professor nici student, ci doar Person.)
+ */
 public class Person implements Observer{
     private String surname;
     private String name;
@@ -88,7 +94,7 @@ public class Person implements Observer{
     /**
      * Metoda care updateaza continutul fisierului de iesire pentru evenimente.
      * @param message mesajul pe care ajung sa il scriu in fisier.
-     * @param pw PrintWriterul cu care voi scrie.
+     * @param pw PrintWriterul cu care voi afisa in fisier mesajul.
      */
     @Override
     public void update(String message, PrintWriter pw) {

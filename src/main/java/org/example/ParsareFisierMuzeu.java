@@ -4,6 +4,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Clasa in care efectiv citesc datele dintr-un fisier de tip muzeum, si afisez outputul
+ * corespunzator. Execut comenzile in functie de ce este pe prima coloana a fiecarei linii
+ * (cu exceptia primei) si creez comenzile specifice cu parametrii corespunzatori
+ * preluati, apoi le execut.
+ */
 public class ParsareFisierMuzeu {
     public static void parsareLiniiMuseum(BufferedReader br, PrintWriter pw) throws IOException {
         // nu e recomandat sa setez toate argumentele optionale, daca nu le primesc pe toate.

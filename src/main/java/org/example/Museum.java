@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clasa ce modeleaza entitatea muzeala, cu o lista de observatori atasati, de
+ * tip Professor, parametrii obligatorii si optionali. (design patternul builder)
+ */
 public class Museum {
     private List<Professor> observers = new ArrayList<Professor>();
     // campuri obligatorii
@@ -173,6 +177,11 @@ public class Museum {
     public String toString() {
         return this.code + ": " + this.name;
     }
+
+    // Mai jos sunt cateva metode specifice designului patternului Observer,
+    // Considerand Museul ca subiectul ce la fiecare eveniment(comanda ADD EVENT din parsaerFisierEvenimente
+    // va notifica observatorii atasati (inregistrati la muzeu) prin trimiterea unui mail ( simulata si resimtita
+    // de logica aplicatiei prin afisarea mailul-urilor respective in fisierul events...out.
 
     /**
      * Metoda de atasare a unui observator, adica pur si simplu il inserez in lista de observers.

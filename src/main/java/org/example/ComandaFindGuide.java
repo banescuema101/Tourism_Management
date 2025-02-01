@@ -2,6 +2,9 @@ package org.example;
 
 import java.io.PrintWriter;
 
+/**
+ * Comanda de verificat daca un ghid transmis ca parametru este sau nu din grupul curent.
+ */
 public class ComandaFindGuide extends Comanda{
     private Integer museumCode;
     private String timetable;

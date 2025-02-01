@@ -3,6 +3,9 @@ package org.example;
 import java.io.PrintWriter;
 import java.util.Set;
 
+/**
+ * Comanda cu rol de adaugare a unui ghid la un grup.
+ */
 public class ComandaAddGuideToGroup extends Comanda{
     private Group grup;
     private Person ghid;
@@ -36,7 +39,7 @@ public class ComandaAddGuideToGroup extends Comanda{
                     muzeuPentruAtasareObs.attachObserver((Professor) ghid);
                 }
             }
-        } catch ( GuideTypeException e) {
+        } catch (GuideTypeException e) {
             pw.println(grup.getMuseumCode() + " ## " + grup.getTimetable() + " ## " + e.getMessage() + " ## (new guide: " + ghid.toString() + ")");
         } catch (GuideExistsException e) {
             // aici afisez new guide: ghidul ce exista deja

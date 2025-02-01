@@ -1,5 +1,10 @@
 package org.example;
 
+/**
+ * Clasa ce modeleaza un Student, care va avea un constructor specific in care il apelez si pe
+ * cel al superclasei Person si implementez de asemenea si metoda toString pentru reprezentarea
+ * specifica unui student.
+ */
 public class Student extends Person {
     private String school;
     private int studyYear;

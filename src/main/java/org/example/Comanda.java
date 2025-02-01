@@ -1,5 +1,8 @@
 package org.example;
 
+/**
+ * Interfata care va fi implementata de comenzile specifice.
+ */
 public abstract class Comanda {
 
     // throws Exception pentru a putea arunca in comenzile specifice, exceptii personalizate

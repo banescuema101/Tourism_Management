@@ -2,6 +2,11 @@ package org.example;
 import java.io.PrintWriter;
 import java.util.*;
 
+/**
+ * Clasa care modeleaza un grup, ce are o lista de membrii, precum si un atribut ghid de
+ * tip Professor, un cod de muzeu pe care il va vizita intr un anumit interval de timp,
+ * adica timetable-ul de tip String.
+ */
 public class Group{
     private List<Person> members;
     private Professor guide;

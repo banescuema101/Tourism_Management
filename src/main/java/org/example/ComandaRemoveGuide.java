@@ -2,6 +2,9 @@ package org.example;
 
 import java.io.PrintWriter;
 
+/**
+ * Comanda pentru a sterge, elimina ghidul dintr un anume grup.
+ */
 public class ComandaRemoveGuide extends Comanda{
     private final Integer museumCode;
     private final String timetable;

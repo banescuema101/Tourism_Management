@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * Clasa in care efectiv citesc datele dintr-un fisier de tip event, si voi apela practic
+ * doar metoda setEvent corespunzatoare muzeului cu codul codEntitate, care ea la randul
+ * ei imi va afisa notificari aferente in fisierul events.out.
+ */
 public class ParsareFisierEvenimente {
     public static void parsareLiniiEvenimente(BufferedReader brEvent, PrintWriter pwEvent) throws IOException {
         String linie;

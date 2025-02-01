@@ -2,6 +2,9 @@ package org.example;
 import java.io.PrintWriter;
 import java.util.Set;
 
+/**
+ * Comanda de adaugare a unui membru la un grup specific.
+ */
 public class ComandaAddMember extends Comanda{
     private Integer museumCode;
     private String timetable;
@@ -15,12 +18,15 @@ public class ComandaAddMember extends Comanda{
     }
     @Override
     public void executa() throws GroupNotExistsException {
-            Set<Group> grupuriBazaDeDate = Database.Instanta().getListaGrupuri();
+            //reperez grupul in baza de date.
             Group grupGasit = Database.Instanta().findGroup(museumCode, timetable);
             if (grupGasit == null) {
                 throw new GroupNotExistsException("GroupNotExistsException: Group does not exist.");
             }
             try {
+                // daca l-am gasit atunci apelez metoda prin care adaug un membru grupului
+                // si afisez in fisierul de iesire outputul actiunii, sau eroare de treshold in
+                // caz ca nu se depaseste limita si metoda addMember arunca exceptia aceea.
                 grupGasit.addMember(member);
                 pw.println(museumCode + " ## " + timetable + " ## new member: " + member.toString());
             } catch (GroupTresholdException e) {

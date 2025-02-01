@@ -1,6 +1,11 @@
 package org.example;
 import java.io.*;
 
+/**
+ * Clasa principala inmi creez fisierele de citire, de intrare, apeland metodele din clasele
+ * de parsare corespunzatoare (parsarele de asemenea, gestioneaza si fiecare prim argument
+ * de pe fiecare linie cu exceptia primei, creeand si executand fiecare comanda aferenta.)
+ */
 public class Main {
     public static void main(String[] args) {
         // Resetez baza de date pentru a face ca datele sa NU fie persistente DECAT pe parcursul unei

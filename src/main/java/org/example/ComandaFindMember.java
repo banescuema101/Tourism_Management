@@ -1,6 +1,10 @@
 package org.example;
 import java.io.PrintWriter;
 
+/**
+ * Comanda in care voi vrea sa caut un membru dintr-un anume grup
+ * turistic.
+ */
 public class ComandaFindMember extends Comanda{
     private Integer museumCode;
     private String timetable;
