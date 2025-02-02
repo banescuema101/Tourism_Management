@@ -3,7 +3,9 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Clasa ce modeleaza entitatea muzeala, cu o lista de observatori atasati, de
@@ -11,6 +13,7 @@ import java.util.List;
  */
 public class Museum {
     private List<Professor> observers = new ArrayList<Professor>();
+    // de numarul de grupuri vizitat.
     // campuri obligatorii
     private String name;
     private long code;
@@ -215,9 +218,9 @@ public class Museum {
      *           conform cerintei, il voi scrie in fisierul event.out.
      */
     public void setEvent(String message, PrintWriter pw) {
-        System.out.println("Am intrat in setEvent");
+//        System.out.println("Am intrat in setEvent");
         for (Professor observer : observers) {
-            System.out.println(observer);
+//            System.out.println(observer);
             String mesajMail = "To: " + observer.getEmail() + " ## Message: " + this.name + " (" + this.code + ")" + " " + message;
             notifyObserver(observer, mesajMail, pw);
         }

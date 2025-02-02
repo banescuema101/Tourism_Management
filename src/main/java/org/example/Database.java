@@ -1,6 +1,5 @@
 package org.example;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Baza de date creata folosind Singleton, ce cotine un set de muzee si de grupuri.
@@ -111,5 +110,94 @@ public class Database {
             }
         }
         return null;
+    }
+
+    /**
+     *  Metoda ->  Functionalitate Extra.
+     *  Daca as considera ca doar maxim trei grupuri de vizitatori (maxim 33 persoane adica, intrucat
+     *  intr-un grup pot fi doar 10 membrii, plus profesorul ghid) ar putea vizita muzeul intr-un anumit interval
+     *  orar.(in caz contrar ar fi foarte multa aglomeratie si ar putea afecta elementele sensibile din muzeu
+     *  De altfel, dorim sa oferim o experienta exclusiva, de cea mai buna calitate, astfel nu se doreste suprapunerea
+     *  mai multor grupuri de vizitatori intr-un anumit interval orar (de cateva zeci de minute).
+     * @param museumCode codul muzeului la care vreau a adaug un grup.
+     * @param timetable intervalul orar in care doreste un grup sa viziteze muzeul cu codul museumCode.
+     * @return true daca se va putea adauga un alt grup ca vizitator al muzeului, false altfel.
+     */
+    public boolean disponibilitateMuzeu(Integer museumCode, String timetable) {
+        int numarGrupuri = 0;
+        if (groups == null || groups.isEmpty()) {
+            return true;
+        }
+        for (Group group : groups) {
+            if (group.getMuseumCode().equals(museumCode) && group.getTimetable().equals(timetable)) {
+                numarGrupuri++;
+            }
+        }
+        if (numarGrupuri >= 3) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Metoda tot pentru partea de functionalitate extra, in care imi doresc sa afisez
+     * fiecare muzeu existent, dupa numarul de grupuri care au venit sa il viziteze pana la momentul
+     * de timp cand este apelata metoda aceasta.
+     * @return lista de muzee sortata corespunzator cu ajutorul metodei getMuseumsSortate
+     */
+    public List<Museum> afisareMuzeeSortateDupaGrupuri() {
+        if (museums == null || museums.isEmpty()) {
+            return new ArrayList<>();
+            // daca nu am niciun muzeu, as returna o lista goala.
+        }
+        // numar pentru fiecare muzeu, cate grupuri au fost asignate lui pana in momentul acesta
+        Map<Museum, Integer> muzeuriSiGrupuri = new HashMap<>();
+        int numarGrupuri = 0;
+        for (Museum museum : museums) {
+            if (groups == null || groups.isEmpty()) {
+                numarGrupuri = -1;
+            }
+            for (Group group : groups) {
+                if (((long)(group.getMuseumCode())) == museum.getCode()) {
+                    numarGrupuri++;
+                }
+            }
+            // daca un muzeu nu a avut niciun grup turistic care l-a vizitat
+            // nu il voi lua in calcul pentru sortare.
+            if (numarGrupuri != -1) {
+                muzeuriSiGrupuri.put(museum, numarGrupuri);
+            }
+        }
+        return getMuseumsSortate(muzeuriSiGrupuri);
+    }
+
+    /**
+     * Metoda ajutatoare in care folosesc metoda din {@link List#sort(Comparator)}, cu un comparator
+     * anonim care compara valorile din lista de chei corespunzatoare pentru primul si al doilea
+     * muzeu de comparat.
+     * @param muzeuriSiGrupuri map-ul transmis ca parametru
+     * @return lista sortata.
+     */
+    private List<Museum> getMuseumsSortate(Map<Museum, Integer> muzeuriSiGrupuri) {
+        // preiau dictonarul convertit la lista.
+        List<Museum> listaMuzee = new ArrayList<>(muzeuriSiGrupuri.keySet());
+        // voi folosi aici clasa anonima, pentru ca am incercat initial sa fac un comparator
+        // separat care sa suprascrie si el metoda compare, dar nu am putut sa transmit
+        // numarul de grupuri per muzeu... Si consider ca nu avea rost sa introduc un atribut
+        // suplimentar la clasa Muzeu, care sa retina si numarul de vizite al muzeului doar
+        // pentru a implementa aici o functionalitate de sortare, intrucat in alta parte
+        // nu m as folosi de asta.
+        listaMuzee.sort(new Comparator<Museum>() {
+            @Override
+            public int compare(Museum muzeu1, Museum muzeu2) {
+                if (muzeuriSiGrupuri.get(muzeu1) > muzeuriSiGrupuri.get(muzeu2)) {
+                    return -1;
+                } else if (muzeuriSiGrupuri.get(muzeu1) < muzeuriSiGrupuri.get(muzeu2)) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+        return listaMuzee;
     }
 }

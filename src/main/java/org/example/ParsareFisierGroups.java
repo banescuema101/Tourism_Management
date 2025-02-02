@@ -3,6 +3,7 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * Clasa in care efectiv citesc datele dintr-un fisier de tip groups, si afisez outputul
@@ -69,12 +70,18 @@ public class ParsareFisierGroups {
                         ComandaAddGuideToGroup comandaAddGuide = new ComandaAddGuideToGroup(grupGasit, persoanaParsata, pw);
                         comandaAddGuide.executa();
                     } else {
-                        // daca NU EXISTA UN MAIN GROUP:
+                        // daca NU EXISTA UN MAIN GROUP=>
                         if (persoanaParsata instanceof Professor) {
                             ComandaAddGroup comandaAddGroup = new ComandaAddGroup(grup);
                             // aici e ceva ca il creez cu ghidul si apoi vreau sa il adaug si da exceptie ca deja il am EVIDENT.
-                            comandaAddGroup.executa();
-                            System.out.println(grup.getGuide());
+                            try {
+                                comandaAddGroup.executa();
+                                // daca mi s aruncat exceptie de tipul MuseumFullException => nu mai pot realiza
+                                // comanda de adaugare a acestui grup ca vizitator al muzeului.
+                            } catch (MuseumFullException e) {
+                                pw.println(e.getMessage());
+                            }
+//                            System.out.println(grup.getGuide());
                             ComandaAddGuideToGroup comandaAddGuide = new ComandaAddGuideToGroup(grup, persoanaParsata, pw);
                             comandaAddGuide.executa();
                         }
@@ -120,6 +127,12 @@ public class ParsareFisierGroups {
                         pw.println(codeMuseum + " ## " + timetable + " ## " + e.getMessage() + " ## (find member: " + persoanaParsata + ")");
                     }
                     break;
+                    // pentru functionalitatea bonus de sortare pe care m-am gandit sa o implementez.
+                case "ANALYSE MUSEUMS":
+                    List<Museum> muzeeSortate = Database.Instanta().afisareMuzeeSortateDupaGrupuri();
+                    for (Museum m : muzeeSortate) {
+                        System.out.println(m);
+                    }
                 default:
                     break;
             }

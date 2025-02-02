@@ -1,5 +1,7 @@
 package org.example;
 
+import java.io.PrintWriter;
+
 /**
  * Comanda cu rol de adaugare a unui grup in baza de date.
  */
@@ -8,8 +10,14 @@ public class ComandaAddGroup extends Comanda {
     public ComandaAddGroup(Group group) {
         this.group = group;
     }
-    // doar voi apela metoda din baza de date, de adaugare a unui grup.
-    public void executa() {
-        Database.Instanta().addGroup(group);
+    // voi apela metoda din baza de date, de adaugare a unui grup daca si numai daca
+    // muzeul nu este supraincarcat la momentul respectiv timetable. (daca sunt deja programate
+    // minim 3 grupuri => nu se mai adauga si arunc exceptie care se trateaza ulterior in Main.
+    public void executa() throws MuseumFullException {
+        if (Database.Instanta().disponibilitateMuzeu(group.getMuseumCode(), group.getTimetable())) {
+            Database.Instanta().addGroup(group);
+        } else {
+            throw new MuseumFullException("Din pacate, limita maxima de grupuri pentru acest interval orar este atinsa.");
+        }
     }
 }

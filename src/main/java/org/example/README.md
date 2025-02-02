@@ -68,6 +68,19 @@ emailul sa fie scris in fisier IN MOMENTUL IN CARE UN OBSERVATOR E NOTIFICAT.
 fiecare observator (ghid) din lista de observatori ai muzeului VA FI NOTIFICAT cu metoda
 `notifyObserver(observer, mesajMail, pw);`. Metoda de notify va apela metoda observatorului observer
 de updatare care la randul ei va scrie mailul in fisierul de IESIRE.
-- 
 
+## Functionalitati extra:
+- Am creat in clasa `Database` doua metode suplimentare:
+`disponibilitateMuzeu()` in care pornesc de la premisa ca un muzeu poate fi vizitat in acelasi interval
+orar timetable, doar de MAXIM 3 grupuri turistice, conform "ordinului interior al muzeului". In momentul
+in care voi executa comanda de adaugare a unui grup in baza de date, cu un museumCode si un timetable
+specific voi apela aceasta metoda din cadrul bazei de date pentru a permite adaugarea grupului,
+numai si numai daca nu se depaseste limita maxima de 3 grupuri per interval. Metoda va arunca o exeptie
+de tipul `MuseumFullException`, pe care o voi trata in cadrul comenzii ADD GUIDE, la adaugarea unui grup!
 
+- Am mai creat o metoda `afisareMuzeeSortateDupaGrupuri()` prin care sa sortez muzeele astfel:
+de la cele cu cele mai multe grupuri turistice care le-au vizitat, la muzeele cu cele mai putine vizite.
+Nu iau in calcul cele care au zero vizite. M-am ajutat de un hashMap, pentru a retine pentru fiecare
+muzeu(key) din baza de date corespondentul(valoarea): numarul de grupuri turistice care le-au calcat pragul.
+Metoda returneaza o lista sortata, folosind un comparator anonim pe care o voi afisa daca in fisierul
+groups, la parsarea din `ParsareFisierGroups` apare comanda pe linie ca prim argument: `ANALYSE MUSEUMS`.
