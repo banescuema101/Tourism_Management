@@ -1,7 +1,5 @@
 package org.example;
 
-import java.io.PrintWriter;
-
 /**
  * Comanda cu rol de adaugare a unui grup in baza de date.
  */

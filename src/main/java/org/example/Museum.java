@@ -3,9 +3,7 @@ package org.example;
 import java.io.BufferedReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Clasa ce modeleaza entitatea muzeala, cu o lista de observatori atasati, de
