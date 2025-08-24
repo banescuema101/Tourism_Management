@@ -2,79 +2,77 @@ package org.example;
 import java.io.*;
 
 /**
- * Clasa principala inmi creez fisierele de citire, de intrare, apeland metodele din clasele
- * de parsare corespunzatoare (parsarele de asemenea, gestioneaza si fiecare prim argument
- * de pe fiecare linie cu exceptia primei, creeand si executand fiecare comanda aferenta.)
- */
+* The main class where I create the input and output files, calling the methods from the corresponding
+* parsing classes (the parsers also handle each first argument on each line except the first one,
+* creating and executing each corresponding command.)
+*/
 public class Main {
     public static void main(String[] args) {
-        // Resetez baza de date pentru a face ca datele sa NU fie persistente DECAT pe parcursul unei
-        // sesiuni.
-        Database.Instanta().resetAll();
-        // cazul in care args va avea doar 2 parametrii, tipul pathului si calea fisierului.
+        // Resetting the database to make data is NOT persistent EXCEPT during a session.
+        Database.Instance().resetAll();
+
+        // the case where args will have only 2 parameters, the path type and the file path.
         if (args.length == 2) {
-            // am observat ca testerul creeaza calea fara extensia .in, asa ca o voi concatena.
+            // The tester creates the path without the .in extension, so I will concatenate it.
             String filename = args[1] + ".in";
             try {
-                // incerc sa deschid fisierul de intrare folosind File, apoi un FileReader construit pe baza
-                // fisierului File (creat avand doar numele dorit filename) si apoi folosesc BufferedReader
-
-                // la crearea fisierului de output, m-am ajutat de
+                // I try to open the input file using File, then a FileReader built on the basis
+                // of the File object (created with only the desired filename) and then use BufferedReader
                 File inputFile = new File(filename);
                 FileReader fr = new FileReader(inputFile);
                 BufferedReader br = new BufferedReader(fr);
-                // creez fisierul de iesire, functia de mai jos returnand un printWriter
-                // prin care voi referi la fisierul creat.
-                PrintWriter pwFile1 = creeazaFisier(inputFile);
+                // I create the output file, the function below returns a PrintWriter
+                // through which I will refer to the created file.
+                PrintWriter pwFile1 = createFile(inputFile);
 
-                // diferentierea fluxului de executie pe baza path type-ului decid in ce mod vor fi
-                // parsate liniile din fisierul de intrare curent.
+                // Differentiating the execution flow based on the path type to decide how
+                // the lines in the current input file will be parsed.
                 if (args[0].equals(PathTypes.MUSEUMS.getValue())) {
-                    ParsareFisierMuzeu.parsareLiniiMuseum(br, pwFile1);
+                    MuseumsFileParser.rowsParser(br, pwFile1);
                     pwFile1.close();
                 } else if (args[0].equals(PathTypes.GROUPS.getValue())) {
-                    ParsareFisierGroups.parsareLiniiGroups(br, pwFile1);
+                    GroupsFileParser.parsareLiniiGroups(br, pwFile1);
                 }
             } catch (FileNotFoundException e) {
-                System.out.println("Fisierul nu a fost gasit: " + filename);
+                System.out.println("File wasn't found " + filename);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (args.length == 4) {
-            // In caz ca args are 4 parametrii: tipul pathului si cele 3 fisiere de muzeuri,
-            // grupuri si events:
-            // creez cele 3 File -uri
-            String numeFisierMuzee = args[1] + ".in";
-            File fisierMuzee = new File(numeFisierMuzee);
+            // In case args has 4 parameters: the path type and the 3 files for museums,
+            // groups, and events:
+            // I create the 3 File objects
+            String museumsFileName = args[1] + ".in";
+            File museumFile = new File(museumsFileName);
 
-            String numeFisierGrupuri = args[2] + ".in";
-            File fisierGrupuri = new File(numeFisierGrupuri);
+            String groupsFileName = args[2] + ".in";
+            File groupsFile = new File(groupsFileName);
 
-            String numeFisierEvenimente = args[3] + ".in";
-            File fisierEvenimente = new File(numeFisierEvenimente);
+            String eventsFileName = args[3] + ".in";
+            File eventsFile = new File(eventsFileName);
             try {
-                // PENTRU MUZEURI:
-                FileReader fr = new FileReader(fisierMuzee);
-                BufferedReader brMuzeu = new BufferedReader(fr);
-                PrintWriter pwMuzeu = creeazaFisier(fisierMuzee);
+                // for MUSEUMS:
+                FileReader fr = new FileReader(museumFile);
+                BufferedReader brMuseum = new BufferedReader(fr);
+                PrintWriter pwMuseum = createFile(museumFile);
 
-                // PENTRU GRUPURI:
-                FileReader frGrup = new FileReader(fisierGrupuri);
-                BufferedReader brGrup = new BufferedReader(frGrup);
-                PrintWriter pwGrupuri = creeazaFisier(fisierGrupuri);
+                // for GROUPS:
+                FileReader frGroup = new FileReader(groupsFile);
+                BufferedReader brGroup = new BufferedReader(frGroup);
+                PrintWriter pwGroups = createFile(groupsFile);
 
-                // PENTRU EVENIMENTE:
-                FileReader frEvent = new FileReader(fisierEvenimente);
+                // for EVENTS:
+                FileReader frEvent = new FileReader(eventsFile);
                 BufferedReader brEvent = new BufferedReader(frEvent);
-                PrintWriter pwEvent = creeazaFisier(fisierEvenimente);
-                // parsez datele din cele 3 fisiere de input:
+                PrintWriter pwEvent = createFile(eventsFile);
+                // Differentiating the parsing flow based on the path type to decide how
                 if (args[0].equals(PathTypes.LISTENER.getValue())) {
-                    ParsareFisierMuzeu.parsareLiniiMuseum(brMuzeu, pwMuzeu);
-                    ParsareFisierGroups.parsareLiniiGroups(brGrup, pwGrupuri);
-                    ParsareFisierEvenimente.parsareLiniiEvenimente(brEvent, pwEvent);
+                    MuseumsFileParser.rowsParser(brMuseum, pwMuseum);
+                    GroupsFileParser.parsareLiniiGroups(brGroup, pwGroups);
+                    EventsFileParser.rowsParser(brEvent, pwEvent);
                 }
             } catch (FileNotFoundException e) {
-                System.out.println("Eroare la gasirea fisierelor");
+                System.out.println("Files weren't found ");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -82,19 +80,19 @@ public class Main {
     }
 
     /**
-     * Avand la dispozitie un fisier File creat dintr-un nume efectiv String de fisier,
-     * scopul este mai intai sa ii modific numele, prin determinarea directorului parinte
-     * cu ajutorul metodei: {@link File#getParent()} pe care il voi concatena cu separatorul
-     * de fisier, cu numele fara extensie ( fiinda numele contine .in si vreau sa il schimb la .out) si cu
-     * extensia .out. Apoi, voi crea FileWriterul pe numele modificat.
-     * @param fisier fisierul caruia vreau sa ii returnez un PrintWriter corespunzator.
-     * @return PrintWriter-ul corespunzator fisierului de scriere creat.
-     * @throws IOException in caz ca apare o exceptie
-     */
-    private static PrintWriter creeazaFisier(File fisier) throws IOException {
-        String parentDirectory = fisier.getParent();
-        String fileNameFaraExtensie = fisier.getName().split("\\.")[0];
-        FileWriter fw = new FileWriter((parentDirectory + File.separator + fileNameFaraExtensie + ".out"), true);
+    * Given a File object created from an actual String file name,
+    * the goal is first to modify its name by determining the parent directory
+    * using the method: {@link File#getParent()}, which will be concatenated with the file separator,
+    * the name without the extension (since the name contains .in and I want to change it to .out), and
+    * the .out extension. Then, I will create the FileWriter with the modified name.
+    * @param file the file for which I want to return a corresponding PrintWriter.
+    * @return the corresponding PrintWriter for the created output file.
+    * @throws IOException in case an exception occurs
+    */
+    private static PrintWriter createFile(File file) throws IOException {
+        String parentDirectory = file.getParent();
+        String fileNameWithoutExtension = file.getName().split("\\.")[0];
+        FileWriter fw = new FileWriter((parentDirectory + File.separator + fileNameWithoutExtension + ".out"), true);
         return new PrintWriter(fw);
     }
 

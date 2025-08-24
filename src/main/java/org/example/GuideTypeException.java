@@ -1,8 +1,8 @@
 package org.example;
 
 /**
- * Exceptie => Persoana pe care vreau sa o asignez ca ghid al unui grup
- * nu respecta tipul cerut de cerinta, adica nu ar fi de tipul Professor.
+ * Exception thrown when trying to assign a guide to a group, but that person
+ * does not meet the required type, i.e., is not of type Professor.
  */
 public class GuideTypeException extends Exception{
     public GuideTypeException(String message){

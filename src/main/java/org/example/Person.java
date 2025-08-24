@@ -3,10 +3,10 @@ package org.example;
 import java.io.PrintWriter;
 
 /**
- * Clasa ce modeleaza o persoana. Nu este abstracta pentru ca va trebui sa o pot instantia
- * si pe ea de exemplu in cazul in care creez managerul unui muzeu (care nu este nici
- * professor nici student, ci doar Person.)
- */
+* Class that models a person. It is not abstract because I need to be able to instantiate it,
+* for example, in the case where I create a museum manager (who is neither
+* a professor nor a student, but just a Person).
+*/
 public class Person implements Observer{
     private String surname;
     private String name;
@@ -64,14 +64,14 @@ public class Person implements Observer{
     }
 
     /**
-     * Aici am suprascris metoda equals, pentru a putea compara corect si fara probleme, atunci cand
-     * am avut nevoie sa caut un anumit membru, spre exemplu in ComandaFindMember. Cand in lista de membrii,
-     * membrul curent era egal cu mebrul de cautat {@param person}, am aplicat equals si am facut in aceasta metoda
-     * astfel incat equals sa dea true daca si numai daca toti parametrii clasei {@link Person} sunt aceeasi pentru ambele
-     * obiecte de comparat.
-     * @param person Persoana pe care o compar cu referinta la obiectul curent.
-     * @return true, daca obiectele sunt identice, false altfel.
-     */
+    * Here I have overridden the equals method to correctly and seamlessly compare when
+    * I needed to search for a specific member, for example in CommandFindMember. When in the list of members,
+    * the current member was equal to the searched member {@param person}, I applied equals and made it in this method
+    * so that equals returns true if and only if all the parameters of the {@link Person} class are the same for both
+    * objects being compared.
+    * @param person The person I compare with the reference to the current object.
+    * @return true, if the objects are identical, false otherwise.
+    */
     public boolean equals(Person person) {
         if (surname == null || !this.surname.equals(person.getSurname())) {
             return false;
@@ -92,10 +92,10 @@ public class Person implements Observer{
     }
 
     /**
-     * Metoda care updateaza continutul fisierului de iesire pentru evenimente.
-     * @param message mesajul pe care ajung sa il scriu in fisier.
-     * @param pw PrintWriterul cu care voi afisa in fisier mesajul.
-     */
+    * Method that updates the content of the output file for events.
+    * @param message the message that will be written to the file.
+    * @param pw the PrintWriter used to write the message to the file.
+    */
     @Override
     public void update(String message, PrintWriter pw) {
             // partea DE OBSERVER DESIGN PATTERN:

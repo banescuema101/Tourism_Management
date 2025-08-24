@@ -3,8 +3,8 @@ package org.example;
 import java.io.PrintWriter;
 
 /**
- * Interfata pe care o va implementa clasa Person, pentru designul Observer.
- */
+* Interface that will be implemented by the Person class for the Observer design pattern.
+*/
 public interface Observer {
     void update(String message, PrintWriter pw);
 }

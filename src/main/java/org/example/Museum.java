@@ -6,31 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clasa ce modeleaza entitatea muzeala, cu o lista de observatori atasati, de
- * tip Professor, parametrii obligatorii si optionali. (design patternul builder)
- */
+* Class that models the museum entity, with a list of attached observers of
+* type Professor, mandatory and optional parameters. (builder design pattern)
+*/
 public class Museum {
     private List<Professor> observers = new ArrayList<Professor>();
-    // de numarul de grupuri vizitat.
-    // campuri obligatorii
+    // about the number of visited groups.
+    // mandatory fields
     private String name;
     private long code;
-    private long supervisorCode; // codul institutiei supervisoare.
+    private long supervisorCode;
     private Location location;
-    // capurile optionale
-    private Person manager;  // a mean directorul
+    // optional fields
+    private Person manager;  // the museum director basically.
     private Integer foundingYear;
     private String phoneNumber;
     private String fax;
     private String email;
     private String url;
     private String profile;
-    // codul postal. Aici le am pus eu ce mi s a parut ca mai
-    // trebuie optional.. nu stiu sigur.
+
+    // In case I will need to use these fields later.
     private long postalCode;
     private String category;
     private String coordonate;
-    // coordonatele : museum
 
 
     public String getName() {
@@ -88,15 +87,15 @@ public class Museum {
     public String getCoordonate() {
         return coordonate;
     }
-    // si altele..
-    // Clasa Builder pentru constructia
+
+    // Builder Design Pattern -> builder class inside the Museum class.
     public static class MuseumBuilder {
-        // campuri obligatorii
+        // mandatory fields
         private String name;
         private long code;
         private long supervisorCode;
         private Location location;
-        // capurile optionale
+        // optional fields
         private Person manager;
         private Integer foundingYear;
         private String phoneNumber;
@@ -115,7 +114,7 @@ public class Museum {
         }
         public MuseumBuilder setManager(Person manager) {
             this.manager = manager;
-            // si returnez referinta actuala.
+            // and I will return a reference to the current instance of the builder class.
             return this;
         }
         public MuseumBuilder setFoundingYear(Integer foundingYear) {
@@ -178,49 +177,49 @@ public class Museum {
         return this.code + ": " + this.name;
     }
 
-    // Mai jos sunt cateva metode specifice designului patternului Observer,
-    // Considerand Museul ca subiectul ce la fiecare eveniment(comanda ADD EVENT din parsaerFisierEvenimente
-    // va notifica observatorii atasati (inregistrati la muzeu) prin trimiterea unui mail ( simulata si resimtita
-    // de logica aplicatiei prin afisarea mailul-urilor respective in fisierul events...out.
+    // Below are some methods specific to the Observer design pattern,
+    // Considering the Museum as the subject that, for each event (ADD EVENT command from EventsFileParser),
+    // will notify the attached observers (registered to the museum) by sending an email (simulated and reflected
+    // in the application logic by displaying those emails in the events...out file.
 
     /**
-     * Metoda de atasare a unui observator, adica pur si simplu il inserez in lista de observers.
-     * Aceasta metoda o voi folosi in cadrul metodei: {@link ComandaAddGuideToGroup#executa()}. Pentru ca
-     * atunci cand adaug un ghid unui grup, si operatia se finalizeaza cu succes, nu apar exceptii, voi
-     * atasa acel ghid (de tip Professor) muzeului la care grupul are vizita, cu codul codeMuseum.
-     * @param observer Ghidul pe care doresc sa il atasez in lista de "observatori" ce apartin acestui MUZEU.
+     * Method to attach an observer, meaning I simply insert it into the list of observers.
+     * This method will be used in the method: {@link CommandAddGuideToGroup#execute()}. Because
+     * when I add a guide to a group, and the operation is successfully completed without exceptions, I will
+     * attach that guide (of type Professor) to the museum where the group has a visit, with the code codeMuseum.
+     * @param observer The guide I want to attach to the list of "observers" belonging to this MUSEUM.
      */
     public void attachObserver(Professor observer) {
         observers.add(observer);
     }
 
     /**
-     *
-     * @param observer Observatorul pe care vreau sa il notific.
-     * @param message Mesajul pe care vreau sa i-l trimit.
-     * @param pw PrintWriterul cu ajutorul caruia {@link Professor#update(String, PrintWriter)} va afisa mailul in
-     *           fisierul event.out.
-     */
+    *
+    * @param observer The observer I want to notify.
+    * @param message The message I want to send to them.
+    * @param pw The PrintWriter used by {@link Professor#update(String, PrintWriter)} to display the email in
+    *           the event.out file.
+    */
     public void notifyObserver(Professor observer, String message, PrintWriter pw) {
             observer.update(message, pw);
     }
 
     /**
-     * Un setter in care practic, imi actualizez starea subiectului, adica a muzeului, in starea
-     * de trimitere a unui mesaj. Iterez prin fiecare observator (ghid de tip Professor), formez mesajul
-     * care contine emailul observatorului respectiv, concatenat cu numele MUZEULUI si codul MUZEULUI.
-     * si aplic metoda de notificare a observatorului la care am ajuns.{@link Museum#notifyObserver(Professor, String, PrintWriter)}
-     * @param message mesajul pe care doreste muzeul, prin ulterioara comanda de adaugare Eveniment,
-     *                pe care il voi parsa in metoda {@link ParsareFisierEvenimente#parsareLiniiEvenimente(BufferedReader, PrintWriter)}.
-     * @param pw printWriterul pe care il va primi ca parametru notifyObserver. Ii trimitem mailul personalizat ulterior si
-     *           conform cerintei, il voi scrie in fisierul event.out.
-     */
+    * A setter where I practically update the state of the subject, meaning the museum, to the state
+    * of sending a message. I iterate through each observer (guide of type Professor), form the message
+    * which contains the email of the respective observer, concatenated with the name of the MUSEUM and the code of the MUSEUM,
+    * and apply the notification method for the observer I have reached. {@link Museum#notifyObserver(Professor, String, PrintWriter)}
+    * @param message The message the museum wants to send, through the subsequent add Event command,
+    *                which I will parse in the method {@link EventsFileParser#rowsParser(BufferedReader, PrintWriter)}.
+    * @param pw The PrintWriter that will be passed as a parameter to notifyObserver. We send the personalized email later and,
+    *           as per the requirements, I will write it in the event.out file.
+    */
     public void setEvent(String message, PrintWriter pw) {
 //        System.out.println("Am intrat in setEvent");
         for (Professor observer : observers) {
 //            System.out.println(observer);
-            String mesajMail = "To: " + observer.getEmail() + " ## Message: " + this.name + " (" + this.code + ")" + " " + message;
-            notifyObserver(observer, mesajMail, pw);
+            String mailMessage = "To: " + observer.getEmail() + " ## Message: " + this.name + " (" + this.code + ")" + " " + message;
+            notifyObserver(observer, mailMessage, pw);
         }
     }
 }

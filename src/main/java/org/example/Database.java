@@ -2,31 +2,31 @@ package org.example;
 import java.util.*;
 
 /**
- * Baza de date creata folosind Singleton, ce cotine un set de muzee si de grupuri.
+ * Here we have the Database, created using Singleton design pattern, which contains a museums set and a groups set.
  */
 public class Database {
-    private static Database databaseUnica;
+    private static Database uniqueDatabase;
     private Set<Museum> museums;
     private Set<Group> groups;
     private Database() {}
 
     /**
-     * Am utilizat designul Singleton pentru a asigura ca aceasta clasa se va putea instantia
-     * o singura data. Daca se va incerca instantierea multipla, referinta la obiect va fi aceeasi
-     * ca cea unica, care s-a creat prima data.
-     * @return o instanta a clasei, obiectul de tip Database.
+     * I used the Singleton design pattern to ensure that this class can be instantiated
+     * only once. If multiple instantiations are attempted, the reference will always point
+     * to the same unique object that was created the first time.
+     * @return an instance of the class, the Database object.
      */
-    public static Database Instanta() {
-        if (databaseUnica == null) {
-            databaseUnica = new Database();
+    public static Database Instance() {
+        if (uniqueDatabase == null) {
+            uniqueDatabase = new Database();
         }
-        return databaseUnica;
+        return uniqueDatabase;
     }
 
     /**
-     * Metoda prin care adaug un muzeu in setul de tip LinkedHashSet (pt a mentine ordinea
-     * in care le adaug, consecventa, unul dupa altul.)
-     * @param museum Muzeul pe care vreau sa il adaug la setul bazei de date.
+     * Method used to add a museum to the LinkedHashSet (to maintain the order
+     * in which they are added, ensuring consistency one after another).
+     * @param museum The museum I want to add to the database set.
      */
     public void addMuseum(Museum museum) {
         // adauga o singura entitate muzeala.
@@ -37,8 +37,8 @@ public class Database {
     }
 
     /**
-     * Metoda prin care adaug un grup de persoane la setul de grupuri din baza de date.
-     * @param group Grupul pe care il adaug in set.
+     * Method used to add a group of people to the set of groups in the database.
+     * @param group The group to be added to the set.
      */
     public void addGroup(Group group) {
         if (groups == null) {
@@ -46,26 +46,28 @@ public class Database {
         }
         groups.add(group);
     }
-    // adaugarea colectiilor de muzee si grupuri, insa nu am avut nevoie de aceste metode.
-    public void addMuseums(LinkedHashSet<Museum> colectieMuzee) {
-        museums.addAll(colectieMuzee);
+
+    // adding the collections of museums and groups, but I did not need these methods.
+    public void addMuseums(LinkedHashSet<Museum> museumCollection) {
+        museums.addAll(museumCollection);
     }
-    public void addGroups(LinkedHashSet<Group> colectieGrupuri) {
-        groups.addAll(colectieGrupuri);
+    public void addGroups(LinkedHashSet<Group> groupsCollection) {
+        groups.addAll(groupsCollection);
     }
 
     /**
-     * Metoda pentru a gasi ulterior un MAIN GROUP.
-     * @param museumCode codul muzeului caruia sa ii fac match.
-     * @param timetable timetable-ul dat ca parametru.
-     * @return Returnez grupul al carui museumCode si Timetable coincid cu cei pe care vreau sa fac match.
+     * Method to later find a MAIN GROUP.
+     * @param museumCode the code of the museum to match.
+     * @param timetable the timetable provided as a parameter.
+     * @return Returns the group whose museumCode and timetable match the given ones.
      */
     public Group findGroup(Integer museumCode, String timetable) {
         if (groups == null || groups.isEmpty()) {
             return null;
         }
-        //iterez prin toate grupurile tinute in setul din baza de date si returnez grupul
-        // daca se respecta cele doua conditii de mai jos:
+        // I iterate through all the groups stored in the database set and return the group
+        // if the two conditions below are satisfied:
+
         for (Group group : groups) {
             if (museumCode.equals(group.getMuseumCode()) && timetable.equals(group.getTimetable())) {
                 return group;
@@ -73,16 +75,16 @@ public class Database {
         }
         return null;
     }
-    public Set<Group> getListaGrupuri() {
+    public Set<Group> getGroupsList() {
         return groups;
     }
 
     /**
-     * Aceasta metoda ma ajuta sa ,,golesc baza de date", stergand toate elementele din cele
-     * doua seturi de grupuri respectiv muzee. Va trebui sa apelez aceasta metoda in clasa {@link Main},
-     * la inceput, imediat ce se creeaza/sau se reutilizeaza(fiind singleton) instanta Database.Instanta()
-     * pentru ca nu vreau ca datele sa fie persistente intre sesiuni diferite de interogari (threaduri distincte
-     * din clasa TestMain.java)
+     * This method helps me "clear the database" by removing all elements from the
+     * two sets of groups and museums. I need to call this method in the {@link Main} class,
+     * at the beginning, right after the Database.Instance() is created or reused (since it is a singleton),
+     * because I do not want the data to persist between different query sessions
+     * (separate threads from the TestMain.java class).
      */
     public void resetAll() {
         if (museums != null) {
@@ -94,11 +96,11 @@ public class Database {
     }
 
     /**
-     * Metoda cu scopul de a gasi un muzeu al carui cod coincide cu muzeul din setul din baza de date
-     * Daca gasesc un astfel de muzeu cu codul transmis ca parametru atunci il voi returna.
-     * @param museumCode codul muzeului pe care diresc sa il caut in baza de date
-     * @return muzeul, daca l am gasit
-     * null, in caz contrar.
+     * Method intended to find a museum whose code matches a museum in the database set.
+     * If such a museum with the given code is found, it will be returned.
+     * @param museumCode the code of the museum I want to search for in the database
+     * @return the museum, if found;
+     *         null otherwise.
      */
     public Museum findMuseum(long museumCode) {
         if (museums == null || museums.isEmpty()) {
@@ -113,91 +115,91 @@ public class Database {
     }
 
     /**
-     *  Metoda ->  Functionalitate Extra.
-     *  Daca as considera ca doar maxim trei grupuri de vizitatori (maxim 33 persoane adica, intrucat
-     *  intr-un grup pot fi doar 10 membrii, plus profesorul ghid) ar putea vizita muzeul intr-un anumit interval
-     *  orar.(in caz contrar ar fi foarte multa aglomeratie si ar putea afecta elementele sensibile din muzeu
-     *  De altfel, dorim sa oferim o experienta exclusiva, de cea mai buna calitate, astfel nu se doreste suprapunerea
-     *  mai multor grupuri de vizitatori intr-un anumit interval orar (de cateva zeci de minute).
-     * @param museumCode codul muzeului la care vreau a adaug un grup.
-     * @param timetable intervalul orar in care doreste un grup sa viziteze muzeul cu codul museumCode.
-     * @return true daca se va putea adauga un alt grup ca vizitator al muzeului, false altfel.
+     * Method -> Extra functionality.
+     * If we consider that only a maximum of three visitor groups (maximum 33 people, since
+     * a group can contain only 10 members plus the guide teacher) can visit the museum within a
+     * specific time slot. (Otherwise, it would be too crowded and could affect the sensitive
+     * elements inside the museum.)
+     * Moreover, we aim to provide an exclusive, high-quality experience, so we do not allow
+     * the overlapping of multiple visitor groups within the same time slot (lasting a few dozen minutes).
+     * @param museumCode the code of the museum where I want to add a group.
+     * @param timetable the time slot in which a group wishes to visit the museum with the given museumCode.
+     * @return true if another group can be added as a visitor to the museum, false otherwise.
      */
-    public boolean disponibilitateMuzeu(Integer museumCode, String timetable) {
-        int numarGrupuri = 0;
+    public boolean museumAvailability(Integer museumCode, String timetable) {
+        int groupsNumber = 0;
         if (groups == null || groups.isEmpty()) {
             return true;
         }
         for (Group group : groups) {
             if (group.getMuseumCode().equals(museumCode) && group.getTimetable().equals(timetable)) {
-                numarGrupuri++;
+                groupsNumber++;
             }
         }
-        if (numarGrupuri >= 3) {
+        if (groupsNumber >= 3) {
             return false;
         }
         return true;
     }
 
     /**
-     * Metoda tot pentru partea de functionalitate extra, in care imi doresc sa afisez
-     * fiecare muzeu existent, dupa numarul de grupuri care au venit sa il viziteze pana la momentul
-     * de timp cand este apelata metoda aceasta.
-     * @return lista de muzee sortata corespunzator cu ajutorul metodei getMuseumsSortate
+     * Method also for the extra functionality part, where I want to display
+     * each existing museum, ordered by the number of groups that have visited it
+     * up to the moment this method is called.
+     * @return the list of museums sorted accordingly using the getSortedMuseums method
      */
-    public List<Museum> afisareMuzeeSortateDupaGrupuri() {
+    public List<Museum> displayMuseumsSortedByGroups() {
         if (museums == null || museums.isEmpty()) {
             return new ArrayList<>();
-            // daca nu am niciun muzeu, as returna o lista goala.
+            // if there are no museums, I would return an empty list.
         }
-        // numar pentru fiecare muzeu, cate grupuri au fost asignate lui pana in momentul acesta
-        Map<Museum, Integer> muzeuriSiGrupuri = new HashMap<>();
-        int numarGrupuri = 0;
+        // a number for each museum, how many groups have been assigned to it up to this moment.
+        Map<Museum, Integer> museumsAndGroups = new HashMap<>();
+        int groupsNumber = 0;
         for (Museum museum : museums) {
             if (groups == null || groups.isEmpty()) {
-                numarGrupuri = -1;
+                groupsNumber = -1;
             }
             for (Group group : groups) {
                 if (((long)(group.getMuseumCode())) == museum.getCode()) {
-                    numarGrupuri++;
+                    groupsNumber++;
                 }
             }
-            // daca un muzeu nu a avut niciun grup turistic care l-a vizitat
-            // nu il voi lua in calcul pentru sortare.
-            if (numarGrupuri != -1) {
-                muzeuriSiGrupuri.put(museum, numarGrupuri);
+            // If there are no museums that haven't had any tourist groups visit them,
+            // I will not consider them for sorting.
+            if (groupsNumber != -1) {
+                museumsAndGroups.put(museum, groupsNumber);
             }
         }
-        return getMuseumsSortate(muzeuriSiGrupuri);
+        return getSortedMuseums(museumsAndGroups);
     }
 
     /**
-     * Metoda ajutatoare in care folosesc metoda din {@link List#sort(Comparator)}, cu un comparator
-     * anonim care compara valorile din lista de chei corespunzatoare pentru primul si al doilea
-     * muzeu de comparat.
-     * @param muzeuriSiGrupuri map-ul transmis ca parametru
-     * @return lista sortata.
+     * Helper method where I use the {@link List#sort(Comparator)} method with an anonymous
+     * comparator that compares the values in the list of keys corresponding to the first
+     * and second museums being compared.
+     * @param museumsAndGroups the map passed as a parameter
+     * @return the sorted list.
      */
-    private List<Museum> getMuseumsSortate(Map<Museum, Integer> muzeuriSiGrupuri) {
-        // preiau dictonarul convertit la lista.
-        List<Museum> listaMuzee = new ArrayList<>(muzeuriSiGrupuri.keySet());
-        // voi folosi aici clasa anonima, pentru ca am incercat initial sa fac un comparator
-        // separat care sa suprascrie si el metoda compare, dar nu am putut sa transmit
-        // numarul de grupuri per muzeu... Si consider ca nu avea rost sa introduc un atribut
-        // suplimentar la clasa Muzeu, care sa retina si numarul de vizite al muzeului doar
-        // pentru a implementa aici o functionalitate de sortare, intrucat in alta parte
-        // nu m as folosi de asta.
-        listaMuzee.sort(new Comparator<Museum>() {
+    private List<Museum> getSortedMuseums(Map<Museum, Integer> museumsAndGroups) {
+        // I am converting the keySet of the map to a list.
+        List<Museum> museumsList = new ArrayList<>(museumsAndGroups.keySet());
+        // I will use an anonymous class here, because initially I tried to create a separate
+        // comparator that also overrides the compare method, but I couldn’t pass the number
+        // of groups per museum... And I think it didn’t make sense to introduce an additional
+        // attribute in the Museum class to store the number of visits just to implement a
+        // sorting functionality here, since I wouldn’t use it anywhere else.
+        museumsList.sort(new Comparator<Museum>() {
             @Override
-            public int compare(Museum muzeu1, Museum muzeu2) {
-                if (muzeuriSiGrupuri.get(muzeu1) > muzeuriSiGrupuri.get(muzeu2)) {
+            public int compare(Museum museum1, Museum museum2) {
+                if (museumsAndGroups.get(museum1) > museumsAndGroups.get(museum2)) {
                     return -1;
-                } else if (muzeuriSiGrupuri.get(muzeu1) < muzeuriSiGrupuri.get(muzeu2)) {
+                } else if (museumsAndGroups.get(museum1) < museumsAndGroups.get(museum2)) {
                     return 1;
                 }
                 return 0;
             }
         });
-        return listaMuzee;
+        return museumsList;
     }
 }

@@ -1,25 +1,25 @@
 package org.example;
 
 /**
- * Clasa Location definita pentru a gestiona si organiza datele
- * asociate locului in care se afla entitatile muzeale. Va avea atat campuri obligatorii
- * cat si optionale (Design pattern: Builder)
+ * The Location class is defined to manage and organize data
+ * associated with the place where museum entities are located. It will have both mandatory
+ * and optional fields (Design pattern: Builder)
  */
 public class Location {
-    // campurile obligatorii.
+    // mandatory fields
     private String county;
     private Integer sirutaCode;
-    // campurile optionale
+    // optional fields
     private String locality;
     private String adminUnit;
     private String address;
     private Integer latitude;
     private Integer longitude;
     public static class LocationBuilder {
-        // campurile obligatorii.
+        // mandatory fields
         private String county;
         private Integer sirutaCode;
-        // campurile optionale
+        // optional fields
         private String locality;
         private String adminUnit;
         private String address;
@@ -27,17 +27,16 @@ public class Location {
         private Integer longitude;
 
         /**
-         * Constructor pentru campurile obligatorii.
-         * @param country judetul aferent
-         * @param sirutaCode codul siruta.
+         * Constructor for the mandatory fields.
+         * @param country the associated country.
+         * @param sirutaCode siruta code.
          */
         public LocationBuilder(String country, Integer sirutaCode) {
             this.county = country;
             this.sirutaCode = sirutaCode;
         }
-        // mai jos, setari pentru fiecare camp optional, care imi vor intoarce
-        // mereu referinta la instanta curenta a clasei in care ma aflu acum.
-
+        // below, setters for each optional field, which will always return
+        // a reference to the current instance of the class in which I am now.
         public LocationBuilder setCounty(String county) {
             this.county = county;
             return this;
@@ -62,10 +61,10 @@ public class Location {
             this.longitude = longitude;
             return this;
         }
-        // metoda build() a builderului intern clasei Location, care va returna un obiect de tipul Location
-        // construit prin constructorul lui mai special ce are ca parametru builderul intern, referit aici
-        // prin this, care mereu se va actualiza pe masura ce ulterior in logica aplicatiei
-        // setez parametrii optionali, pe care nu stiu din start daca ii va avea sau nu entitatea Location.
+        // The build() method of the internal builder class Location, which will return an object of type Location
+        // constructed using its special constructor that takes the internal builder as a parameter, referred to here
+        // as this, which will always be updated as I later set the optional parameters in the application logic,
+        // parameters that I do not know in advance whether the Location entity will have or not.
         public Location build() {
             return new Location(this);
         }

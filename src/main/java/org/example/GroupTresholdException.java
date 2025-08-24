@@ -1,8 +1,7 @@
 package org.example;
 
 /**
- * Exceptie => de ex: la adaugarea unui membru, s-ar depasi limita maxima de 10 persoane
- * admisa.
+ * Exception thrown when a group exceeds the maximum allowed number of members. (10 members)
  */
 public class GroupTresholdException extends Exception {
     public GroupTresholdException(String message) {

@@ -1,7 +1,7 @@
 package org.example;
 
 /**
- * Exceptie => daca o persoana nu exista intr-un anumit grup.
+ * Exception thrown when trying to access a person that does not exist in a certain group.
  */
 public class PersonNotExistsException extends Exception{
     public PersonNotExistsException(String message){

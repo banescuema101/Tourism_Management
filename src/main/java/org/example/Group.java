@@ -3,9 +3,9 @@ import java.io.PrintWriter;
 import java.util.*;
 
 /**
- * Clasa care modeleaza un grup, ce are o lista de membrii, precum si un atribut ghid de
- * tip Professor, un cod de muzeu pe care il va vizita intr un anumit interval de timp,
- * adica timetable-ul de tip String.
+ * Class that models a group, which has a list of members, as well as a guide attribute
+ * of type Professor, a museum code that it will visit within a certain time interval,
+ * i.e., the timetable of type String.
  */
 public class Group{
     private List<Person> members;
@@ -49,11 +49,11 @@ public class Group{
     }
 
     /**
-     * Constructorul grupului, in care voi initializa lista de membrii al grupului precum si
-     * urmatoarele campuri:
-     * @param museumCode codul muzeului
-     * @param timetable timetable ul pe care il voi asigna.
-     */
+    * Constructor of the group, where I will initialize the list of group members as well as
+    * the following fields:
+    * @param museumCode the code of the museum
+    * @param timetable the timetable that I will assign.
+    */
     public Group(Integer museumCode, String timetable) {
         this.members = new ArrayList<Person>();
         this.museumCode = museumCode;
@@ -61,16 +61,16 @@ public class Group{
     }
 
     /**
-     * Metoda prin care adaug ghid unui grup.
-     * @param guide Persoana pe care vreau sa o asignez ca ghid al grupului, voi verifica
-     *              si daca este sau nu de tipul {@link Professor}
-     * @throws GuideTypeException Daca nu este, comenzii de ADD GUIDE,
-     *              care se va executa ulterior in aplicatie, nu ii va fi permis sa il asigneze,
-     *              deci voi arunca o eroare de tipul GuideTypeException
-     * @throws GuideExistsException daca grupul inca are deja un ghid asignat arunc exceptie de tipul
-     *                              {@link GuideExistsException } catre respectiva comanda
-     *                              {@link ComandaAddGuideToGroup}
-     */
+    * Method to add a guide to a group.
+    * @param guide The person I want to assign as the group's guide, and I will check
+    *              if they are of type {@link Professor}.
+    * @throws GuideTypeException If they are not, the ADD GUIDE command,
+    *              which will be executed later in the application, will not be allowed to assign them,
+    *              so I will throw a GuideTypeException.
+    * @throws GuideExistsException If the group already has a guide assigned, I will throw a
+    *                              GuideExistsException to the respective command
+    *                              {@link CommandAddGuideToGroup}.
+    */
     public void addGuide(Person guide) throws GuideTypeException, GuideExistsException {
         if (!(guide instanceof Professor)) {
             throw new GuideTypeException("GuideTypeException: Guide must be a professor.");
@@ -82,11 +82,11 @@ public class Group{
     }
 
     /**
-     * Metoda in care adaug un membru in lista de persoane a grupului.
-     * @param member Membrul pe care doresc sa il adaug.
-     * @throws GroupTresholdException Arunca aceasta exceptie in caz se trece de limita maxima
-     * admisa in grupul de membrii (si anume: 10).
-     */
+    * Method to add a member to the group's list of people.
+    * @param member The member I want to add.
+    * @throws GroupTresholdException Throws this exception if the maximum allowed limit
+    * of group members (namely: 10) is exceeded.
+    */
     public void addMember(Person member) throws GroupTresholdException {
         if (members.size() >= 10) {
             throw new GroupTresholdException("GroupThresholdException: Group cannot have more than 10 members.");
@@ -96,13 +96,13 @@ public class Group{
     }
 
     /**
-     * Metoda prin care sterg un anumit membru din lista de membrii a grupului.
-     * @param member membrul pe care daca il gasesc, voi dori sa il elimin din lista grupului,
-     *               ajutandu ma de un Iterator<Person>, care ma ajuta sa sterg din lista elementul
-     *               gasit in iterator.
-     * @throws PersonNotExistsException  arunc aceasta exceptie in caz ca nu am gasit membrul pe
-     * care as fi dorit sa il elimin.
-     */
+     * Method to remove a specific member from the group's list of members.
+     * @param member The member I want to remove from the group's list if found,
+     *               using an Iterator<Person>, which helps me remove the element
+     *               found in the iterator from the list.
+     * @throws PersonNotExistsException Throws this exception if the member I wanted
+     * to remove was not found.
+     * */
     public void removeMember(Person member) throws PersonNotExistsException {
         boolean found;
         if (members.isEmpty()) {
@@ -126,16 +126,16 @@ public class Group{
     }
 
     /**
-     * Metoda in care doresc sa vad daca ghidul grupului coincide cu cel transmis ca parametru
-     * (ulterior, la comanda findGuide va trebui sa caut un ghid intr un anumit grup din baza
-     * de date, de asta am creat aceasta metoda aici, pentru ca in clasa {@link ComandaFindGuide} sa
-     * tratez doar in caz ca mi se arunca de aici exceptia de mai jos)
-     * @param person Parametru de tip Person, reprezentand persoana care verific daca e sau nu ghid al grupului
-     *               curent.
-     * @param pw PrintWriterul in care voi afisa outputul actiunii.
-     * @throws GuideTypeException exceptie, in caz ca persoana pe care vreau sa o caut
-     *                            ca ghid al grupului curent nu este de tip profesor.
-     */
+    * Method to check if the group's guide matches the one passed as a parameter
+    * (later, in the findGuide command, I will need to search for a guide in a specific group
+    * from the database, which is why I created this method here, so that in the class
+    * {@link CommandFindGuide}, I only handle the case where the exception below is thrown).
+    * @param person Parameter of type Person, representing the person I want to check
+    *               if they are the guide of the current group.
+    * @param pw PrintWriter where I will output the result of the action.
+    * @throws GuideTypeException Exception thrown if the person I want to check
+    *                            as the guide of the current group is not of type Professor.
+    */
     public void findGuide(Person person, PrintWriter pw) throws GuideTypeException {
         if (!(person instanceof Professor)) {
             throw new GuideTypeException("GuideTypeException: Guide must be a professor.");
@@ -148,7 +148,7 @@ public class Group{
     }
 
     /**
-     * Metoda in care resetez ghidul unui grup.
+     * Method to reset the guide of a group.
      */
     public void resetGuide() {
         this.guide = null;

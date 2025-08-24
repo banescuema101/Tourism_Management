@@ -1,9 +1,9 @@
 package org.example;
 
 /**
- * Clasa Professor, va modela un professor, ce va extinde clasa Person, suprascriu metoda
- * toString pentru reprezentarea corespunzatoare a obiectului si creez constructor specific
- * folosindu-ma de cel al superclasei Person.
+ * The Professor class models a professor, extends the Person class, overrides the
+ * toString method for the proper representation of the object, and creates a specific
+ * constructor using the one from the superclass Person.
  */
 public class Professor extends Person{
     private final int experience;
