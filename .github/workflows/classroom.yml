@@ -105,6 +105,8 @@ jobs:
           ERRORED-GROUP-MEMBERS-05_RESULTS: "${{steps.errored-group-members-05.outputs.result}}"
           FIND-GROUPS-06_RESULTS: "${{steps.find-groups-06.outputs.result}}"
           MUSEUM-NOTIFICATOR-07_RESULTS: "${{steps.museum-notificator-07.outputs.result}}"
+        with:
+          runners: basic-museums-load-01,errored-museums-load-02,basic-groups-load-03,errored-group-guide-04,errored-group-members-05,find-groups-06,museum-notificator-07
 
       - name: Upload Test Reports (always)
         if: always()
