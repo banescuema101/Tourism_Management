@@ -186,10 +186,10 @@ public class Database {
         List<Museum> museumsList = new ArrayList<>(museumsAndGroups.keySet());
 
         // I will use an anonymous class here, because initially I tried to create a separate
-        // comparator that also overrides the compare method, but I couldn’t pass the number
-        // of groups per museum... And I think it didn’t make sense to introduce an additional
+        // comparator that also overrides the compare method, but I couldn't pass the number
+        // of groups per museum... And I think it did not make sense to introduce an additional
         // attribute in the Museum class to store the number of visits just to implement a
-        // sorting functionality here, since I wouldn’t use it anywhere else.
+        // sorting functionality here, since I would not use it anywhere else.
 
         museumsList.sort(new Comparator<Museum>() {
             @Override
