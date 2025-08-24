@@ -13,8 +13,8 @@ Note: For more detailed explanations about the methods, please check the JavaDoc
 
 I applied the Singleton pattern in the `Database` class, since the database must be unique per session.
 This pattern allowed me to define a private constructor and a static field
-`private static Database databaseUnica` used inside the method `public static Database Instanta()`.
-This method is called in the Main class (and in specific commands). It checks if the static attribute `databaseUnica` is `null` — in which case it creates the database using the private constructor — or otherwise simply returns the already existing instance.
+`private static Database uniqueDatabase` used inside the method `public static Database Instance()`.
+This method is called in the Main class (and in specific commands). It checks if the static attribute `uniqueDatabase` is `null` — in which case it creates the database using the private constructor — or otherwise simply returns the already existing instance.
 
 ## Builder Pattern
 
@@ -45,7 +45,7 @@ In this design, the Subject is the Museum class, which contains a private list o
 `private List<Professor> observers = new ArrayList<Professor>()`
 
 The observers are the guides. When adding a guide to a group (the group being associated with a museum code), I register the guide as an observer of that museum:
-`muzeuPentruAtasareObs.attachObserver((Professor) guide)`;
+`museumWithObserver.attachObserver((Professor) guide)`;
 
 The Observer interface is implemented by each `Person`. When an event is added (parsed from the events.in file, e.g., with the `ADD EVENT` command), the corresponding museum calls `setEvent(message, pwEvent)`.
 The message is the event description, and the `PrintWriter` is the output file. This output is propagated so that when an observer is notified, the "email" message is written directly to the output file.
@@ -56,10 +56,10 @@ The observer’s update() method then writes the formatted email to the output f
 ## Extra Functionality
 In the Database class, I added two extra methods:
 
-`disponibilitateMuzeu()` – assumes that a museum can be visited by at most 3 groups simultaneously in the same timetable, according to the museum’s internal rules.
+`museumAvailability()` – assumes that a museum can be visited by at most 3 groups simultaneously in the same timetable, according to the museum’s internal rules.
 When executing the ADD GROUP command, this method ensures that no more than 3 groups overlap in a time slot.
 If the limit is exceeded, a MuseumFullException is thrown and handled during group addition.
 
-`afisareMuzeeSortateDupaGrupuri()` – sorts museums based on the number of tourist groups they have hosted, from most visited to least visited (excluding those with zero visits).
+`displayMuseumsSortedByGroups` – sorts museums based on the number of tourist groups they have hosted, from most visited to least visited (excluding those with zero visits).
 I implemented this using a HashMap to store each museum (key) and its visit count (value).
 The method returns a sorted list using an anonymous comparator, and the results are printed when the parser encounters the `ANALYSE MUSEUMS` command in the input file.
