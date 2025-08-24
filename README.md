@@ -1,4 +1,10 @@
-# Relationship Between Classes and Description and Justification of the Design Patterns Used in the Application
+## Project Description
+
+This project represents the development of the back-end for a tourism application.  
+Its main purpose is to allow users to create and manage a database of museums open to the public, as well as organize tourist groups.
+The system provides functionalities for adding museums, creating and managing groups, handling schedules, and ensuring consistency through database operations. 
+
+## Relationship Between Classes and Description and Justification of the Design Patterns Used in the Application
 
 In this application, I used four design patterns that I considered practical for simplifying development: **Singleton**, **Builder**, **Command**, and **Observer**.
 Note: For more detailed explanations about the methods, please check the JavaDoc comments in each class.
